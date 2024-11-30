@@ -9,6 +9,7 @@ public class ModelImpl implements Model {
     private boolean[][] lampLocation;
     private boolean[][] isLit;
     private final List<ModelObserver> modelObserverList;
+    private int[][] lightCount;
     public ModelImpl(PuzzleLibrary library) {
         if (library == null || library.size() == 0) {
             throw new IllegalArgumentException("Library must contain puzzles.");
@@ -205,47 +206,50 @@ public class ModelImpl implements Model {
         Puzzle activePuzzle = getActivePuzzle();
         lampLocation = new boolean[activePuzzle.getHeight()][activePuzzle.getWidth()];
         isLit = new boolean[activePuzzle.getHeight()][activePuzzle.getWidth()];
+        lightCount = new int[activePuzzle.getHeight()][activePuzzle.getWidth()];
     }
 
     private void updateLight(int r, int c, boolean addLight) {
         if (!isValidCell(r, c)) {
             throw new IndexOutOfBoundsException();
         }
+        int lightChange;
+        if (addLight) { lightChange = 1; }
+        else { lightChange = -1; }
+        lightCount[r][c] += lightChange;
+        isLit[r][c] = lightCount[r][c] > 0;
+
         for (int i = r - 1; i >= 0; i--) {
             CellType ct = getActivePuzzle().getCellType(i, c);
             if (ct == CellType.WALL || ct == CellType.CLUE) {
                 break;
             }
-            if (ct == CellType.CORRIDOR) {
-                isLit[i][c] = addLight;
-            }
+            lightCount[i][c] += lightChange;
+            isLit[i][c] = lightCount[i][c] > 0;
         }
         for (int i = r + 1; i < getActivePuzzle().getHeight(); i++) {
             CellType ct = getActivePuzzle().getCellType(i, c);
             if (ct == CellType.WALL || ct == CellType.CLUE) {
                 break;
             }
-            if (ct == CellType.CORRIDOR) {
-                isLit[i][c] = addLight;
-            }
+            lightCount[i][c] += lightChange;
+            isLit[i][c] = lightCount[i][c] > 0;
         }
         for (int j = c - 1; j >= 0; j--) {
             CellType ct = getActivePuzzle().getCellType(r, j);
             if (ct == CellType.WALL || ct == CellType.CLUE) {
                 break;
             }
-            if (ct == CellType.CORRIDOR) {
-                isLit[r][j] = addLight;
-            }
+            lightCount[r][j] += lightChange;
+            isLit[r][j] = lightCount[r][j] > 0;
         }
         for (int j = c + 1; j < getActivePuzzle().getWidth(); j++) {
             CellType ct = getActivePuzzle().getCellType(r, j);
             if (ct == CellType.WALL || ct == CellType.CLUE) {
                 break;
             }
-            if (ct == CellType.CORRIDOR) {
-                isLit[r][j] = addLight;
-            }
+            lightCount[r][j] += lightChange;
+            isLit[r][j] = lightCount[r][j] > 0;
         }
     }
     private boolean isValidCell(int r, int c) {
