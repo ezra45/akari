@@ -136,16 +136,12 @@ public class ModelImpl implements Model {
             for (int c = 0; c < activePuzzle.getWidth(); c++) {
                 CellType ct = activePuzzle.getCellType(r, c);
 
-                // Making sure all lamps are legal
-                if (ct == CellType.CORRIDOR && isLamp(r, c)) {
-                    if (isLampIllegal(r, c)) {
-                        return false;
-                    }
-                }
-
-                // Making sure all corridor cells are lit
+                // Making sure all lamps are legal and lit
                 if (ct == CellType.CORRIDOR) {
                     if (!isLit(r, c)) {
+                        return false;
+                    }
+                    if (isLamp(r, c) && isLampIllegal(r, c)) {
                         return false;
                     }
                 }
@@ -171,16 +167,16 @@ public class ModelImpl implements Model {
         int lamps = 0;
         int clue = activePuzzle.getClue(r, c);
         // These if statements check each neighbor of the clue cell
-        if (isLamp(r + 1, c) && isValidCell(r + 1, c)) {
+        if (isValidCell(r + 1, c) && isLamp(r + 1, c)) {
             lamps++;
         }
-        if (isLamp(r - 1, c) && isValidCell(r - 1, c)) {
+        if (isValidCell(r - 1, c) && isLamp(r - 1, c)) {
             lamps++;
         }
-        if (isLamp(r, c + 1) && isValidCell(r, c + 1)) {
+        if (isValidCell(r, c + 1) && isLamp(r, c + 1)) {
             lamps++;
         }
-        if (isLamp(r, c - 1) && isValidCell(r, c - 1)) {
+        if (isValidCell(r, c - 1) && isLamp(r, c - 1)) {
             lamps++;
         }
         return lamps == clue;
