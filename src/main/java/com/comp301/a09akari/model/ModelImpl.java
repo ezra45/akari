@@ -161,24 +161,33 @@ public class ModelImpl implements Model {
 
   @Override
   public boolean isClueSatisfied(int r, int c) {
-    Puzzle activePuzzle = getActivePuzzle();
-    if (activePuzzle.getCellType(r, c) != CellType.CLUE) {
+    CellType ct = getActivePuzzle().getCellType(r, c);
+
+    if (ct != CellType.CLUE) {
       throw new IllegalArgumentException("Not a clue cell.");
     }
     isValidCell(r, c);
     int lamps = 0;
-    int clue = activePuzzle.getClue(r, c);
+    int clue = getActivePuzzle().getClue(r, c);
     // These if statements check each neighbor of the clue cell
-    if (isValidCell(r + 1, c) && isLamp(r + 1, c)) {
+    if (isValidCell(r + 1, c)
+        && getActivePuzzle().getCellType(r + 1, c) == CellType.CORRIDOR
+        && isLamp(r + 1, c)) {
       lamps++;
     }
-    if (isValidCell(r - 1, c) && isLamp(r - 1, c)) {
+    if (isValidCell(r - 1, c)
+        && getActivePuzzle().getCellType(r - 1, c) == CellType.CORRIDOR
+        && isLamp(r - 1, c)) {
       lamps++;
     }
-    if (isValidCell(r, c + 1) && isLamp(r, c + 1)) {
+    if (isValidCell(r, c + 1)
+        && getActivePuzzle().getCellType(r, c + 1) == CellType.CORRIDOR
+        && isLamp(r, c + 1)) {
       lamps++;
     }
-    if (isValidCell(r, c - 1) && isLamp(r, c - 1)) {
+    if (isValidCell(r, c - 1)
+        && getActivePuzzle().getCellType(r, c - 1) == CellType.CORRIDOR
+        && isLamp(r, c - 1)) {
       lamps++;
     }
     return lamps == clue;
