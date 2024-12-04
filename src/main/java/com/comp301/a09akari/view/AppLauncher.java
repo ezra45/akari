@@ -43,8 +43,8 @@ public class AppLauncher extends Application {
     layout.setTop(indexText);
 
     HBox solvedBox = new HBox(solvedText);
-    solvedBox.setAlignment(Pos.CENTER_RIGHT); // Align to the right
-    solvedBox.setPadding(new Insets(10, 40, 10, 10)); // Add padding (top, right, bottom, left)
+    solvedBox.setAlignment(Pos.CENTER_RIGHT);
+    solvedBox.setPadding(new Insets(10, 40, 10, 10));
     layout.setRight(solvedBox);
 
     model.addObserver(
