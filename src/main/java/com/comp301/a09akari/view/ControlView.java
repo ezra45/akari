@@ -1,6 +1,7 @@
 package com.comp301.a09akari.view;
 
 import com.comp301.a09akari.controller.ClassicMvcController;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -15,6 +16,7 @@ public class ControlView implements FXComponent {
   @Override
   public Parent render() {
     HBox controls = new HBox(10);
+    controls.setPadding(new Insets(20, 20, 20, 20));
 
     Button resetButton = new Button("Reset");
     resetButton.setOnAction(e -> controller.clickResetPuzzle());

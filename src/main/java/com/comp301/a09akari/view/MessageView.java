@@ -1,6 +1,5 @@
 package com.comp301.a09akari.view;
 
-import com.comp301.a09akari.controller.ClassicMvcController;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;

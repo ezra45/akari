@@ -3,17 +3,11 @@ package com.comp301.a09akari.view;
 import com.comp301.a09akari.controller.ClassicMvcController;
 import com.comp301.a09akari.model.Puzzle;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.shape.Rectangle;
-
-import java.util.Objects;
 
 public class PuzzleView implements FXComponent {
   private final ClassicMvcController controller;
@@ -25,6 +19,7 @@ public class PuzzleView implements FXComponent {
   @Override
   public Parent render() {
     GridPane gridPane = new GridPane();
+    gridPane.getStyleClass().add("puzzle-grid");
     gridPane.setGridLinesVisible(true);
     Puzzle puzzle = controller.getModel().getActivePuzzle();
 
