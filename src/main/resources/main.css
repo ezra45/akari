@@ -1,7 +1,31 @@
-/**
- * Write CSS code in this file to style your JavaFX user interface
- *
- * Note: You must link this file to your scene object by adding the following line of code to the
- * JavaFX start() method:
- *   scene.getStylesheets().add("main.css");
- */
+.main-layout {
+    -fx-alignment: center;
+    -fx-background-color: #FFC5D3;
+}
+
+.main-layout .center {
+    -fx-alignment: center;
+}
+
+.puzzle-index-text {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.solved-text {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-fill: #2E8B57;
+}
+
+.title-text {
+    -fx-font-size: 50px;
+    -fx-font-weight: bold;
+    -fx-fill: #000080;
+}
+
+.puzzle-grid {
+    -fx-alignment: center;
+    -fx-hgap: 0;
+    -fx-vgap: 0;
+}
